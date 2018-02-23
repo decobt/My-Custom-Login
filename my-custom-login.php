@@ -10,6 +10,7 @@
 */
 
 require_once('templates/theme-page.php');
+require_once('option-page.php');
 
 /* Main redirection of the default login page*/
 function redirect_login_page() {
