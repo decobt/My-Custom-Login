@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" ?>
-  <link href="<?php echo plugin_dir_url( __FILE__ ) . 'assets/css/login-style.css' ?>" rel="stylesheet"/>
-
-
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" />
+  <link href="<?php echo plugin_dir_url( __FILE__ ) . 'assets/css/login-style.css' ?>" rel="stylesheet" />
 </head>
 <body>
+
+<?php
+  if($_GET["login"]=='failed'){
+    $class = 'input-warning';
+  }else{
+    $class = '';
+  }
+
+?>
 
 <form action="<?php echo wp_login_url(); ?>" method="post">
 	<div class="svgContainer">
@@ -102,14 +109,14 @@
 
 	<div class="inputGroup inputGroup1">
 		<label for="email">Username</label>
-		<input type="text" name="log" id="email" class="email" maxlength="256" value="" />
+		<input type="text" name="log" id="email" class="email <?php echo $class ?>" maxlength="256" value="" />
 	</div>
 	<div class="inputGroup inputGroup2">
 		<label for="password">Password</label>
-		<input type="password" name="pwd" id="password" class="password" />
+		<input type="password" name="pwd" id="password" class="password <?php echo $class ?>" />
 	</div>
 	<div class="inputGroup inputGroup3">
-		<button id="login" type="submit">Log in</button>
+		<button id="login" >Log in</button>
 	</div>
 </form>
 
