@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" / >
   <link href="<?php echo plugin_dir_url( __FILE__ ) . 'assets/css/login-style.css' ?>" rel="stylesheet" />
 </head>
 <body>
 
 <?php
-  if($_GET["login"]=='failed'){
-    $class = 'input-warning';
-  }else{
-    $class = '';
-  }
-
+//define message and notification class
+switch($_GET['login']){
+  case 'failed': { $message = '<i class="fas fa-times-circle"></i> Login attempt failed'; $class = 'input-error'; break;}
+  case 'empty': { $message = '<i class="fas fa-exclamation-circle"></i> Empty input fields warning.'; $class = 'input-warning'; break;}
+  case 'false': { $message = '<i class="fas fa-check-circle"></i> Succesfully logged out!'; $class = 'input-success';  break;}
+  default: {$message= ''; $class = ''; break;}
+}
 ?>
 
+<?php if($message!=''){ ?>
+  <div class="notification <?php echo $class ?> "><?php echo $message; ?></div>
+ <?php } ?>
+
+<?php if ( !is_user_logged_in() ) { ?>
 <form action="<?php echo wp_login_url(); ?>" method="post">
 	<div class="svgContainer">
 		<div>
@@ -119,9 +125,18 @@
 		<button id="login" >Log in</button>
 	</div>
 </form>
+<?php } else { ?>
+
+<h3 style="margin:30px auto; text-align:center">You are already logged in!</h3>
+<div style="max-width:360px; width:100%; margin:auto">
+  <a style="text-decoration:none" href="<?php echo wp_logout_url(); ?>"><button id="logout" >Logout</button></a>
+</div>
+
+<?php } ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 <script src="<?php echo plugin_dir_url( __FILE__ ) . 'assets/js/login-script.js' ?>"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
 </body>
 </html>
