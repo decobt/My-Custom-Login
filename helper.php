@@ -1,7 +1,7 @@
 <?php
 
 class Helper {
-    public function login_page_redirect( $template ) {
+     function login_page_redirect( $template ) {
     	$plugindir = dirname( __FILE__ );
 
     	if ( !is_page_template( 'page-login.php' )) {
@@ -11,16 +11,17 @@ class Helper {
     	return $template;
     }
 
-    public function restrict_post_deletion($post_ID){
+     function restrict_post_deletion($post_id){
     		$restricted_page = get_page_by_path('login');
-    		if($post_ID == $restricted_page->ID){
+
+    		if($post_id == $restricted_page->ID){
     				echo "You are not authorized to delete this page.";
     				exit;
     		}
     }
 
     /* Main redirection of the default login page */
-    public function redirect_login_page() {
+     function redirect_login_page() {
     	$login_page  = home_url('/login/');
     	$page_viewed = basename($_SERVER['REQUEST_URI']);
 
@@ -41,7 +42,7 @@ class Helper {
 
 
     /* Where to go if a login failed */
-    public function custom_login_failed() {
+    function custom_login_failed() {
     	$login_page  = home_url('/login/');
     	wp_redirect($login_page . '?login=failed');
     	exit;
@@ -49,7 +50,7 @@ class Helper {
 
 
     /* Where to go if any of the fields were empty */
-    public function verify_user_pass($user, $username, $password) {
+    function verify_user_pass($user, $username, $password) {
     	$login_page  = home_url('/login/');
     	if(($username == "" || $password == "") && $_SERVER['REQUEST_METHOD'] == 'POST') {
     		wp_redirect($login_page . "?login=empty");
@@ -59,7 +60,7 @@ class Helper {
 
 
     /* What to do on logout */
-    public function logout_redirect() {
+    function logout_redirect() {
     	$login_page  = home_url('/login/');
     	wp_redirect($login_page . "?login=false");
     	exit;
